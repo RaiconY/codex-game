@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Codex Reality Game</title>
+<style>
+ body {
+     font-family: Arial, sans-serif;
+     background: linear-gradient(120deg, #222, #444);
+     color: #fff;
+     text-align: center;
+     margin: 0;
+     padding: 0;
+ }
+ h1 {
+     margin-top: 40px;
+ }
+ #choices {
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
+     max-width: 800px;
+     margin: 40px auto;
+ }
+ .choice {
+     background: #555;
+     border: none;
+     color: #fff;
+     padding: 10px 20px;
+     margin: 5px;
+     cursor: pointer;
+     border-radius: 4px;
+     transition: background 0.3s;
+ }
+ .choice:hover {
+     background: #777;
+ }
+ #story {
+     max-width: 800px;
+     margin: 20px auto;
+     padding: 20px;
+     background: rgba(0,0,0,0.6);
+     border-radius: 8px;
+     opacity: 0;
+     transform: translateY(20px);
+     transition: opacity 0.5s, transform 0.5s;
+ }
+ #story.show {
+     opacity: 1;
+     transform: translateY(0);
+ }
+</style>
+</head>
+<body>
+<h1>Изменения реальности</h1>
+<div id="choices"></div>
+<div id="story"></div>
+<script>
+const CHANGES = {
+  1: "Земля перестает вращаться вокруг своей оси.",
+  2: "Люди обретают способность к фотосинтезу.",
+  3: "Сила земного притяжения уменьшается вдвое.",
+  4: "Электричество перестает существовать в привычном виде.",
+  5: "На Марсе обнаруживается развитая жизнь.",
+  6: "Все ледниковые периоды в истории Земли никогда не случались.",
+  7: "Люди могут дышать под водой как на суше.",
+  8: "Интернет никогда не был изобретен.",
+  9: "Средняя продолжительность жизни человека становится 200 лет.",
+ 10: "На Луне создают постоянную базу ещё в 1970‑е."
+};
+
+const STORIES = {
+  1: "Перестановка Земли вызвала бы гигантские дисбалансы. Одна полусфера всегда во тьме, другая — под палящим солнцем. Люди мигрируют к зонам умеренного климата.",
+  2: "С фотосинтезом люди питались бы частично светом. Появились бы специальные зоны и одежда для накопления энергии.",
+  3: "При гравитации вдвое меньше мы прыгали бы как на Луне. Архитектура и транспорт изменились бы радикально.",
+  4: "Без электричества цивилизация откатилась бы к технологиям XIX века, развивая механику и альтернативные источники энергии.",
+  5: "Обнаружение жизни на Марсе ускорило бы космические программы и породило новые дипломатические отношения.",
+  6: "Отсутствие ледниковых периодов изменило бы рельеф Земли, сделав биоразнообразие более однообразным.",
+  7: "Способность дышать под водой открыла бы подводные города и фермы, а отдых у моря стал бы совершенно иным.",
+  8: "Мир без интернета остался бы локальным. Глобальное общение опиралось бы на телевидение и печать.",
+  9: "Средняя жизнь в 200 лет изменила бы рынок труда и пенсионные системы, дав людям больше времени на развитие.",
+ 10: "Лунная база 1970-х ускорила бы освоение космоса и развитие надёжных ракетных технологий."
+};
+
+const choicesContainer = document.getElementById('choices');
+const storyContainer = document.getElementById('story');
+
+for (const [num, text] of Object.entries(CHANGES)) {
+  const btn = document.createElement('button');
+  btn.className = 'choice';
+  btn.textContent = `${num}. ${text}`;
+  btn.addEventListener('click', () => showStory(num));
+  choicesContainer.appendChild(btn);
+}
+
+function showStory(num) {
+  storyContainer.classList.remove('show');
+  // restart animation
+  void storyContainer.offsetWidth;
+  storyContainer.textContent = STORIES[num];
+  storyContainer.classList.add('show');
+}
+</script>
+</body>
+</html>
